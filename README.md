@@ -1,4 +1,4 @@
-# manning-notification-microservice
+# notification-microservice
 
 This is a sample microservice that has 4 main core services
 1. NotificationPreferencesService
