@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.baskota</groupId>
-    <artifactId>manning-notification-microservice</artifactId>
+    <artifactId>notification-microservice</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -13,6 +13,7 @@
     <modules>
         <module>NotificationPreferencesService</module>
         <module>NotificationTemplateFormatter</module>
+        <module>NotificationGateway</module>
     </modules>
 
     <build>
