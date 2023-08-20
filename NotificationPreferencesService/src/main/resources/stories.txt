@@ -1,0 +1,2 @@
+1. Create a REST API to retrieve notification preferences based on customer id.
+   Preference are SMS or email
