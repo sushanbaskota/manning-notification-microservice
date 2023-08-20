@@ -12,6 +12,7 @@
 
     <modules>
         <module>NotificationPreferencesService</module>
+        <module>NotificationTemplateFormatter</module>
     </modules>
 
     <build>
