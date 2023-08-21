@@ -20,9 +20,11 @@ public class NotificationGatewayService {
         String notificationContent = sendNotificationRQ.getNotificationContent();
 
         if (NotificationMode.SMS.name().equalsIgnoreCase(notificationMode)) {
-            smsHandler.sendSMS(sendNotificationRQ.getPhoneNumber(), notificationContent);
+            boolean smsSentSuccess = smsHandler.sendSMS(sendNotificationRQ.getPhoneNumber(), notificationContent);
 
-            return sendNotification(Status.SUCCESS);
+            if (smsSentSuccess) {
+                return sendNotification(Status.SUCCESS);
+            }
         } else if (NotificationMode.EMAIL.name().equalsIgnoreCase(notificationMode)) {
             emailHandler.sendEmail(
                     sendNotificationRQ.getEmailAddress(), sendNotificationRQ.getEmailSubject(), notificationContent
