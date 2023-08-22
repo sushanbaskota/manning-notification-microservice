@@ -26,11 +26,13 @@ public class NotificationGatewayService {
                 return sendNotification(Status.SUCCESS);
             }
         } else if (NotificationMode.EMAIL.name().equalsIgnoreCase(notificationMode)) {
-            emailHandler.sendEmail(
+            boolean sendEmailSuccess = emailHandler.sendEmail(
                     sendNotificationRQ.getEmailAddress(), sendNotificationRQ.getEmailSubject(), notificationContent
             );
 
-            return sendNotification(Status.SUCCESS);
+            if (sendEmailSuccess) {
+                return sendNotification(Status.SUCCESS);
+            }
         }
 
         return sendNotification(Status.FAILED);
