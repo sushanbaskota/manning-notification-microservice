@@ -14,7 +14,7 @@ public class NotificationRestClient {
 
     private final RestTemplate restTemplate;
 
-    public String executeHttpRequest(HttpMethod httpMethod, String url, String requestPayload) {
+    public String execute(HttpMethod httpMethod, String url, String requestPayload) {
         try {
             HttpHeaders httpHeaders = buildHeaders();
 

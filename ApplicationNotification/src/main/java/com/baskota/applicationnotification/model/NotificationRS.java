@@ -6,5 +6,5 @@ import lombok.Data;
 public class NotificationRS {
     private String status;
     private String statusDescription;
-    private String notificationReferenceId;
+    private Long notificationReferenceId;
 }

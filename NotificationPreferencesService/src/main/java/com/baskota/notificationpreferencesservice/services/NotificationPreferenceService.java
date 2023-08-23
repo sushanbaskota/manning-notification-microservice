@@ -7,10 +7,12 @@ import com.baskota.notificationpreferencesservice.model.NotificationPreferenceRS
 import com.baskota.notificationpreferencesservice.repositories.NotificationPreferenceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class NotificationPreferenceService {
     private final NotificationPreferencesFormatter notificationPreferencesFormatter;
