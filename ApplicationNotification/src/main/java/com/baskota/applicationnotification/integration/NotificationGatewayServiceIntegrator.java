@@ -3,6 +3,7 @@ package com.baskota.applicationnotification.integration;
 import com.baskota.applicationnotification.integration.http.NotificationRestClient;
 import com.baskota.applicationnotification.model.gateway.SendNotificationRQ;
 import com.baskota.applicationnotification.model.gateway.SendNotificationRS;
+import com.baskota.applicationnotification.util.GenericConverter;
 import com.baskota.applicationnotification.util.JsonConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpMethod;
@@ -15,11 +16,15 @@ public class NotificationGatewayServiceIntegrator {
     private final NotificationRestClient notificationRestClient;
 
     public SendNotificationRS sendNotification(SendNotificationRQ sendNotificationRQ) {
-        String requestPayload = jsonMap.toJson(sendNotificationRQ);
+        GenericConverter<SendNotificationRQ> requestConverter = new GenericConverter<>(SendNotificationRQ.class);
+
+        String requestPayload = jsonMap.toJson(requestConverter.toMap(sendNotificationRQ));
 
         String sendNotificationRS = notificationRestClient
                 .execute(HttpMethod.POST, "http://localhost:8083/api/notifications/send", requestPayload);
 
-        return (SendNotificationRS) jsonMap.fromJson(sendNotificationRS);
+        GenericConverter<SendNotificationRS> responseConverter = new GenericConverter<>(SendNotificationRS.class);
+
+        return responseConverter.fromMap(jsonMap.fromJson(sendNotificationRS));
     }
 }

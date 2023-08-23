@@ -7,9 +7,11 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import java.util.Map;
+
 @Component
 public final class JsonConverter {
-    private final TypeReference<Object> typeReference = new TypeReference<>() {
+    private final TypeReference<Map<String, Object>> typeReference = new TypeReference<>() {
     };
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -19,8 +21,8 @@ public final class JsonConverter {
                 .setSerializationInclusion(JsonInclude.Include.NON_NULL);
     }
 
-    public Object fromJson(String payload) {
-        String actualPayload = StringUtils.hasText(payload) ? "{}" : payload;
+    public Map<String, Object> fromJson(String payload) {
+        String actualPayload = StringUtils.hasText(payload) ? payload : "{}";
 
         try {
             return objectMapper.readValue(actualPayload, typeReference);
@@ -29,15 +31,15 @@ public final class JsonConverter {
         }
     }
 
-    public String toJson(Object payload) {
+    public String toJson(Map<String, Object> paylaodMap) {
         try {
-            return objectMapper.writeValueAsString(payload);
+            return objectMapper.writeValueAsString(paylaodMap);
         } catch (Exception ex) {
             throw new RuntimeException("unable to serialize content", ex);
         }
     }
 
-    public Object clone(Object payload) {
+    public Map<String, Object> clone(Map<String, Object> payload) {
         return fromJson(toJson(payload));
     }
 }

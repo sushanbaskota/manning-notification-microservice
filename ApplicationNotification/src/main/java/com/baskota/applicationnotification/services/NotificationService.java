@@ -42,7 +42,9 @@ public class NotificationService {
                     notificationPreferenceServiceIntegrator.getNotificationPreference(notificationPreferenceRQ);
 
             // 2. format notification
-            if (Status.SUCCESS.name().equalsIgnoreCase(notificationPreferenceRS.getStatus())) {
+            if (notificationPreferenceRS != null &&
+                    Status.SUCCESS.name().equalsIgnoreCase(notificationPreferenceRS.getStatus())
+            ) {
                 NotificationTemplateFormatterRQ notificationTemplateFormatterRQ =
                         notificationFormatter.createNotificationFormatterRQ(notificationRQ, notificationPreferenceRS);
 
@@ -50,15 +52,16 @@ public class NotificationService {
                         notificationTemplateFormatterServiceIntegrator.getNotificationTemplate(notificationTemplateFormatterRQ);
 
                 // 3. send notification
-                if (Status.SUCCESS.name().equalsIgnoreCase(notificationTemplateRS.getStatus())) {
+                if (notificationTemplateRS != null &&
+                        Status.SUCCESS.name().equalsIgnoreCase(notificationTemplateRS.getStatus())
+                ) {
                     SendNotificationRQ sendNotificationRQ =
                             notificationFormatter.createSendNotificationRQ(customerId, notificationTemplateRS, notificationPreferenceRS);
 
                     SendNotificationRS sendNotificationRS = notificationGatewayServiceIntegrator.sendNotification(sendNotificationRQ);
 
                     // 4. persist on DB
-
-                    if (Status.SUCCESS.name().equalsIgnoreCase(sendNotificationRS.getStatus())) {
+                    if (sendNotificationRS != null && Status.SUCCESS.name().equalsIgnoreCase(sendNotificationRS.getStatus())) {
                         NotificationDTO notificationDTO =
                                 notificationFormatter.createNotificationDTO(customerId, notificationRQ, notificationPreferenceRS);
 
