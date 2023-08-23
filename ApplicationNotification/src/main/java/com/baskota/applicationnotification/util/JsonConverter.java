@@ -1,18 +1,14 @@
 package com.baskota.applicationnotification.util;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import java.util.Map;
-
 @Component
 public final class JsonConverter {
-    private final TypeReference<Map<String, Object>> typeReference = new TypeReference<>() {
-    };
+
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     public JsonConverter() {
@@ -21,25 +17,25 @@ public final class JsonConverter {
                 .setSerializationInclusion(JsonInclude.Include.NON_NULL);
     }
 
-    public Map<String, Object> fromJson(String payload) {
-        String actualPayload = StringUtils.hasText(payload) ? payload : "{}";
+    public <T> T toObject(String jsonString, Class<T> clazz) {
+        String actualPayload = StringUtils.hasText(jsonString) ? jsonString : "{}";
 
         try {
-            return objectMapper.readValue(actualPayload, typeReference);
+            return objectMapper.readValue(actualPayload, clazz);
         } catch (Exception ex) {
             throw new RuntimeException("unable to deserialize content", ex);
         }
     }
 
-    public String toJson(Map<String, Object> paylaodMap) {
+    public String toJson(Object object) {
         try {
-            return objectMapper.writeValueAsString(paylaodMap);
+            return objectMapper.writeValueAsString(object);
         } catch (Exception ex) {
             throw new RuntimeException("unable to serialize content", ex);
         }
     }
 
-    public Map<String, Object> clone(Map<String, Object> payload) {
-        return fromJson(toJson(payload));
+    public <T> T cloneObject(Object object, Class<T> clazz) {
+        return toObject(toJson(object), clazz);
     }
 }
