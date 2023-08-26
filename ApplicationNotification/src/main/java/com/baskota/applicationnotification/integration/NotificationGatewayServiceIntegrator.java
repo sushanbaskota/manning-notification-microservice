@@ -18,7 +18,7 @@ public class NotificationGatewayServiceIntegrator {
         String requestPayload = jsonConverter.toJson(sendNotificationRQ);
 
         String sendNotificationRS = notificationRestClient
-                .execute(HttpMethod.POST, "http://localhost:8083/api/notifications/send", requestPayload);
+                .execute(HttpMethod.POST, "http://notification-gateway/api/notifications/send", requestPayload);
 
         return jsonConverter.toObject(sendNotificationRS, SendNotificationRS.class);
     }
