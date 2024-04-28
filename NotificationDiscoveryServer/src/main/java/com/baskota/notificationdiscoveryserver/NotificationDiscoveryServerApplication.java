@@ -11,5 +11,4 @@ public class NotificationDiscoveryServerApplication {
     public static void main(String[] args) {
         SpringApplication.run(NotificationDiscoveryServerApplication.class, args);
     }
-
 }
