@@ -18,7 +18,7 @@ public class NotificationTemplateFormatterServiceIntegrator {
         String requestPayload = jsonConverter.toJson(notificationTemplateFormatterRQ);
 
         String notificationTemplateRS = notificationRestClient
-                .execute(HttpMethod.POST, "http://localhost:8082/api/notifications/templates", requestPayload);
+                .execute(HttpMethod.POST, "http://notification-template-formatter/api/notifications/templates", requestPayload);
 
         return jsonConverter.toObject(notificationTemplateRS, NotificationTemplateFormatterRS.class);
     }

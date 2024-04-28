@@ -18,7 +18,7 @@ public class NotificationPreferenceServiceIntegrator {
         String requestPayload = jsonConverter.toJson(notificationPreferenceRQ);
 
         String notificationPreferenceRS = notificationRestClient
-                .execute(HttpMethod.POST, "http://localhost:8084/notification/preference", requestPayload);
+                .execute(HttpMethod.POST, "http://notification-preference/notification/preference", requestPayload);
 
         return jsonConverter.toObject(notificationPreferenceRS, NotificationPreferenceRS.class);
     }

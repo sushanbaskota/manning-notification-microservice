@@ -69,7 +69,7 @@ public class NotificationFormatter {
                 ? NotificationMode.EMAIL.name() : NotificationMode.SMS.name();
     }
 
-    private static String getNotificationContent(
+    private String getNotificationContent(
             NotificationTemplateFormatterRS notificationTemplateRS, String notificationMode
     ) {
         return NotificationMode.SMS.name().equalsIgnoreCase(notificationMode) ?
